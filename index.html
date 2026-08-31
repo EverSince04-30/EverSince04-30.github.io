@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Breakfast Invitation</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #f6ead8, #e7d2b5);
+      font-family: Georgia, "Times New Roman", serif;
+      overflow: hidden;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 390px;
+      background: #fffaf1;
+      border: 2px solid #d6b98d;
+      border-radius: 24px;
+      padding: 42px 28px;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(85, 60, 35, 0.18);
+    }
+
+    .small-title {
+      font-size: 14px;
+      letter-spacing: 3px;
+      color: #8a6b4a;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: 34px;
+      color: #4f3a2d;
+      margin-bottom: 18px;
+      font-weight: 500;
+    }
+
+    .message {
+      color: #7b6656;
+      font-size: 17px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .details {
+      font-size: 15px;
+      letter-spacing: 1.5px;
+      color: #4f3a2d;
+      line-height: 1.8;
+      margin-bottom: 34px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 58px;
+    }
+
+    button {
+      border: none;
+      border-radius: 16px;
+      padding: 14px 28px;
+      font-size: 17px;
+      cursor: pointer;
+      transition: 0.2s ease;
+      font-family: inherit;
+    }
+
+    #yesBtn {
+      background: #6f8451;
+      color: white;
+      margin-right: 14px;
+    }
+
+    #yesBtn:active {
+      transform: scale(0.96);
+    }
+
+    #noBtn {
+      position: absolute;
+      background: #d98682;
+      color: white;
+    }
+
+    .success {
+      display: none;
+      font-size: 29px;
+      color: #4f3a2d;
+      line-height: 1.5;
+      padding: 20px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <div id="invitation">
+
+      <div class="small-title">
+        BREAKFAST INVITATION ♡
+      </div>
+
+      <h1>
+        Breakfast with me?
+      </h1>
+
+      <div class="message">
+        I’d love to start the morning with you.
+      </div>
+
+      <div class="details">
+        SEPTEMBER 01 · 6:15 AM<br>
+        Ras Tanura
+      </div>
+
+      <div class="buttons">
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
+      </div>
+
+    </div>
+
+    <div class="success" id="success">
+      See you tomorrow morning ♡
+    </div>
+
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+    const invitation = document.getElementById("invitation");
+    const success = document.getElementById("success");
+
+    function moveNoButton() {
+      const x = Math.random() * 220 - 110;
+      const y = Math.random() * 180 - 90;
+
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    noBtn.addEventListener("mouseenter", moveNoButton);
+    noBtn.addEventListener("touchstart", moveNoButton);
+    noBtn.addEventListener("click", moveNoButton);
+
+    yesBtn.addEventListener("click", () => {
+      invitation.style.display = "none";
+      success.style.display = "block";
+    });
+  </script>
+
+</body>
+</html>
