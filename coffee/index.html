@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Little Coffee Date ❤️</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #f4eadf, #dcc6ad);
+      font-family: Georgia, "Times New Roman", serif;
+      overflow: hidden;
+      padding: 24px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 390px;
+      background: #fffaf4;
+      border: 2px solid #cdb292;
+      border-radius: 24px;
+      padding: 42px 27px;
+      text-align: center;
+      box-shadow: 0 18px 45px rgba(70, 45, 30, 0.18);
+    }
+
+    .small-title {
+      font-size: 14px;
+      letter-spacing: 2.5px;
+      color: #8a654b;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: 31px;
+      line-height: 1.25;
+      color: #4d382d;
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .message {
+      color: #796457;
+      font-size: 17px;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .time {
+      font-size: 16px;
+      letter-spacing: 2px;
+      color: #4d382d;
+      font-weight: bold;
+      margin-bottom: 34px;
+    }
+
+    .buttons {
+      position: relative;
+      height: 60px;
+    }
+
+    button {
+      border: none;
+      border-radius: 16px;
+      padding: 14px 30px;
+      font-family: inherit;
+      font-size: 17px;
+      cursor: pointer;
+    }
+
+    #yesBtn {
+      background: #6f7957;
+      color: white;
+      margin-right: 15px;
+    }
+
+    #noBtn {
+      position: absolute;
+      background: #c7837d;
+      color: white;
+      transition: 0.12s;
+    }
+
+    .success {
+      display: none;
+      color: #4d382d;
+      font-size: 27px;
+      line-height: 1.5;
+      padding: 25px 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <div id="invitation">
+
+      <div class="small-title">
+        A LITTLE COFFEE DATE ❤️
+      </div>
+
+      <h1>
+        Can I steal you for coffee after work?
+      </h1>
+
+      <div class="message">
+        Just a quiet afternoon,<br>
+        a good cup of coffee,<br>
+        and some time with you.
+      </div>
+
+      <div class="time">
+        3:30 PM
+      </div>
+
+      <div class="buttons">
+        <button id="yesBtn">Yes</button>
+        <button id="noBtn">No</button>
+      </div>
+
+    </div>
+
+    <div class="success" id="success">
+      It's a date then ❤️<br>
+      See you at 3:30.
+    </div>
+
+  </div>
+
+  <script>
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    function escapeNo() {
+      const maxX = Math.min(window.innerWidth - 100, 280);
+      const maxY = Math.min(window.innerHeight - 100, 400);
+
+      const x = Math.random() * maxX - maxX / 2;
+      const y = Math.random() * maxY - maxY / 2;
+
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    noBtn.addEventListener("mouseenter", escapeNo);
+    noBtn.addEventListener("touchstart", function(e) {
+      e.preventDefault();
+      escapeNo();
+    });
+    noBtn.addEventListener("click", function(e) {
+      e.preventDefault();
+      escapeNo();
+    });
+
+    yesBtn.addEventListener("click", function() {
+      document.getElementById("invitation").style.display = "none";
+      document.getElementById("success").style.display = "block";
+    });
+  </script>
+
+</body>
+</html>
