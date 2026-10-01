@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lunch Invitation</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 22px;
+      overflow: hidden;
+
+      background:
+        radial-gradient(circle at 20% 15%, rgba(181,137,88,.14), transparent 30%),
+        radial-gradient(circle at 80% 85%, rgba(181,137,88,.10), transparent 30%),
+        linear-gradient(145deg, #250d12, #4a1820 50%, #210b10);
+
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    /* subtle vintage texture */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      opacity: .16;
+      pointer-events: none;
+
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 3px,
+          rgba(255,255,255,.018) 4px
+        );
+    }
+
+    .invitation {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      min-height: 610px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(circle at center, #fffaf0, #f3e5cc);
+
+      border: 1px solid #b48a53;
+      padding: 15px;
+
+      box-shadow:
+        0 28px 65px rgba(0,0,0,.48),
+        0 0 0 1px rgba(201,164,105,.18);
+
+      animation: reveal 1.2s ease;
+    }
+
+    .inner-border {
+      position: relative;
+      width: 100%;
+      min-height: 575px;
+
+      border: 1px solid #9d7446;
+      outline: 1px solid rgba(157,116,70,.35);
+      outline-offset: 5px;
+
+      padding: 58px 25px 48px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+
+    /* Victorian ornaments */
+    .ornament {
+      color: #8b633c;
+      font-size: 25px;
+      line-height: 1;
+      margin-bottom: 17px;
+    }
+
+    .ornament.bottom {
+      transform: rotate(180deg);
+      margin-top: 21px;
+      margin-bottom: 0;
+    }
+
+    .corner {
+      position: absolute;
+      color: #a77c49;
+      font-size: 29px;
+      opacity: .75;
+    }
+
+    .tl {
+      top: 11px;
+      left: 14px;
+    }
+
+    .tr {
+      top: 11px;
+      right: 14px;
+      transform: scaleX(-1);
+    }
+
+    .bl {
+      bottom: 11px;
+      left: 14px;
+      transform: scaleY(-1);
+    }
+
+    .br {
+      bottom: 11px;
+      right: 14px;
+      transform: scale(-1);
+    }
+
+    .title {
+      color: #6e1e2b;
+      font-size: 13px;
+      letter-spacing: 4px;
+      font-weight: bold;
+      margin-bottom: 29px;
+    }
+
+    .long-time {
+      color: #70584b;
+      font-size: 17px;
+      font-style: italic;
+      margin-bottom: 23px;
+    }
+
+    h1 {
+      color: #34231e;
+      font-size: 27px;
+      line-height: 1.45;
+      font-weight: normal;
+      margin-bottom: 28px;
+    }
+
+    .awaits {
+      color: #806958;
+      font-size: 15px;
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .restaurant {
+      color: #6e1e2b;
+      font-size: 24px;
+      letter-spacing: 3px;
+      margin-bottom: 24px;
+    }
+
+    .divider {
+      width: 100px;
+      height: 1px;
+      background: #b38a55;
+      margin: 0 auto 22px;
+      position: relative;
+    }
+
+    .divider::after {
+      content: "◆";
+      position: absolute;
+      color: #9b7042;
+      background: #f7ecd8;
+      padding: 0 8px;
+      font-size: 7px;
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .time {
+      color: #3e2a23;
+      font-size: 15px;
+      letter-spacing: 2.3px;
+      font-weight: bold;
+      margin-bottom: 23px;
+    }
+
+    .delighted {
+      color: #6c574b;
+      font-size: 16px;
+      font-style: italic;
+      margin-bottom: 31px;
+    }
+
+    .buttons {
+      position: relative;
+      min-height: 53px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 13px;
+    }
+
+    button {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 14px;
+      border-radius: 2px;
+      padding: 13px 18px;
+      cursor: pointer;
+    }
+
+    #yesBtn {
+      color: #fff9ed;
+      background: #6e1e2b;
+      border: 1px solid #6e1e2b;
+
+      box-shadow: 0 5px 12px rgba(76,25,32,.18);
+      transition: .25s ease;
+    }
+
+    #yesBtn:active {
+      transform: scale(.96);
+    }
+
+    #noBtn {
+      color: #6e1e2b;
+      background: transparent;
+      border: 1px solid #9c7752;
+
+      white-space: nowrap;
+      transition: transform .12s ease;
+    }
+
+    .success {
+      display: none;
+      animation: fadeIn .8s ease;
+    }
+
+    .success-small {
+      color: #8a633c;
+      letter-spacing: 3px;
+      font-size: 12px;
+      margin-bottom: 25px;
+    }
+
+    .success-title {
+      color: #6e1e2b;
+      font-size: 33px;
+      font-weight: normal;
+      margin-bottom: 18px;
+    }
+
+    .success-text {
+      color: #6b5548;
+      font-size: 17px;
+      line-height: 1.8;
+      font-style: italic;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(15px) scale(.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-height: 700px) {
+      .invitation {
+        min-height: 560px;
+      }
+
+      .inner-border {
+        min-height: 525px;
+        padding-top: 38px;
+        padding-bottom: 38px;
+      }
+
+      .title {
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="invitation">
+
+    <div class="inner-border">
+
+      <span class="corner tl">❧</span>
+      <span class="corner tr">❧</span>
+      <span class="corner bl">❧</span>
+      <span class="corner br">❧</span>
+
+      <div id="mainInvitation">
+
+        <div class="ornament">❦</div>
+
+        <div class="title">
+          LUNCH INVITATION
+        </div>
+
+        <div class="long-time">
+          It has been a little too long…
+        </div>
+
+        <h1>
+          May I have the pleasure<br>
+          of your company this afternoon?
+        </h1>
+
+        <div class="awaits">
+          A table awaits us at
+        </div>
+
+        <div class="restaurant">
+          CART RESTAURANT
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="time">
+          TODAY · 4:30 PM
+        </div>
+
+        <div class="delighted">
+          I’d be delighted to see you. ♡
+        </div>
+
+        <div class="buttons">
+          <button id="yesBtn">
+            With pleasure
+          </button>
+
+          <button id="noBtn">
+            Regretfully decline
+          </button>
+        </div>
+
+        <div class="ornament bottom">❦</div>
+
+      </div>
+
+
+      <div class="success" id="success">
+
+        <div class="ornament">❦</div>
+
+        <div class="success-small">
+          WONDERFUL
+        </div>
+
+        <div class="success-title">
+          Until this afternoon.
+        </div>
+
+        <div class="success-text">
+          I shall look forward<br>
+          to seeing you at 4:30. ♡
+        </div>
+
+        <div class="ornament bottom">❦</div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const mainInvitation = document.getElementById("mainInvitation");
+    const success = document.getElementById("success");
+
+    function escapeNo() {
+
+      const button = noBtn.getBoundingClientRect();
+
+      const maxX =
+        Math.min(window.innerWidth - button.width - 30, 240);
+
+      const maxY =
+        Math.min(window.innerHeight - button.height - 30, 330);
+
+      const x =
+        (Math.random() - 0.5) * maxX;
+
+      const y =
+        (Math.random() - 0.5) * maxY;
+
+      noBtn.style.transform =
+        `translate(${x}px, ${y}px)`;
+    }
+
+    noBtn.addEventListener("mouseenter", escapeNo);
+
+    noBtn.addEventListener("touchstart", function(event) {
+      event.preventDefault();
+      escapeNo();
+    });
+
+    noBtn.addEventListener("click", function(event) {
+      event.preventDefault();
+      escapeNo();
+    });
+
+    yesBtn.addEventListener("click", function() {
+
+      mainInvitation.style.display = "none";
+      success.style.display = "block";
+
+    });
+  </script>
+
+</body>
+</html>
